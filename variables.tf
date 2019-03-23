@@ -31,10 +31,10 @@ variable "tags" {
   description = "Additional tags (e.g. `map('BusinessUnit`,`XYZ`)"
 }
 
-variable "vpc_id" {
-  type        = "string"
-  description = "The VPC ID where resources are created"
-}
+# variable "vpc_id" {
+#   type        = "string"
+#   description = "The VPC ID where resources are created"
+# }
 
 variable "alb_target_group_arn" {
   type        = "string"
@@ -61,15 +61,15 @@ variable "container_port" {
   default     = 80
 }
 
-variable "private_subnet_ids" {
-  description = "Private subnet IDs"
-  type        = "list"
-}
+# variable "private_subnet_ids" {
+#   description = "Private subnet IDs"
+#   type        = "list"
+# }
 
-variable "security_group_ids" {
-  description = "Security group IDs to allow in Service network_configuration"
-  type        = "list"
-}
+# variable "security_group_ids" {
+#   description = "Security group IDs to allow in Service network_configuration"
+#   type        = "list"
+# }
 
 variable "launch_type" {
   type        = "string"
