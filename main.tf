@@ -151,30 +151,30 @@ resource "aws_iam_role_policy" "ecs_exec" {
 
 # Service
 ## Security Groups
-resource "aws_security_group" "ecs_service" {
-  vpc_id      = "${var.vpc_id}"
-  name        = "${module.default_label.id}"
-  description = "Allow ALL egress from ECS service."
-  tags        = "${module.default_label.tags}"
-}
+# resource "aws_security_group" "ecs_service" {
+#   vpc_id      = "${var.vpc_id}"
+#   name        = "${module.default_label.id}"
+#   description = "Allow ALL egress from ECS service."
+#   tags        = "${module.default_label.tags}"
+# }
 
-resource "aws_security_group_rule" "allow_all_egress" {
-  type              = "egress"
-  from_port         = 0
-  to_port           = 0
-  protocol          = "-1"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = "${aws_security_group.ecs_service.id}"
-}
+# resource "aws_security_group_rule" "allow_all_egress" {
+#   type              = "egress"
+#   from_port         = 0
+#   to_port           = 0
+#   protocol          = "-1"
+#   cidr_blocks       = ["0.0.0.0/0"]
+#   security_group_id = "${aws_security_group.ecs_service.id}"
+# }
 
-resource "aws_security_group_rule" "allow_icmp_ingress" {
-  type              = "ingress"
-  from_port         = 8
-  to_port           = 0
-  protocol          = "icmp"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = "${aws_security_group.ecs_service.id}"
-}
+# resource "aws_security_group_rule" "allow_icmp_ingress" {
+#   type              = "ingress"
+#   from_port         = 8
+#   to_port           = 0
+#   protocol          = "icmp"
+#   cidr_blocks       = ["0.0.0.0/0"]
+#   security_group_id = "${aws_security_group.ecs_service.id}"
+# }
 
 resource "aws_ecs_service" "default" {
   name                               = "${module.default_label.id}"
@@ -186,11 +186,6 @@ resource "aws_ecs_service" "default" {
   launch_type                        = "${var.launch_type}"
   cluster                            = "${var.ecs_cluster_arn}"
   tags                               = "${module.default_label.tags}"
-
-  network_configuration {
-    security_groups = ["${var.security_group_ids}", "${aws_security_group.ecs_service.id}"]
-    subnets         = ["${var.private_subnet_ids}"]
-  }
 
   load_balancer {
     target_group_arn = "${var.alb_target_group_arn}"
