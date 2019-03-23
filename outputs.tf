@@ -18,10 +18,10 @@ output "task_role_arn" {
   value       = "${aws_iam_role.ecs_task.arn}"
 }
 
-output "service_security_group_id" {
-  description = "Security Group ID of the ECS task"
-  value       = "${aws_security_group.ecs_service.id}"
-}
+# output "service_security_group_id" {
+#   description = "Security Group ID of the ECS task"
+#   value       = "${aws_security_group.ecs_service.id}"
+# }
 
 output "task_definition_family" {
   description = "ECS task definition family"
